@@ -9,6 +9,16 @@
 </head>
 <body>
 
+    <div class="result result--lose">
+        <h1 class="result-header">You won!</h1>
+        <p class="result-text">Your WPM: <span id="user-wpm">00</span> | level WPM: <span id="level-wpm">00</span></p>
+        <p class="result-text">Your accuracy: <span id="user-accuracy">00</span> | level accuracy: <span id="level-accuracy">00</span></p>
+        <div class="result-buttons">
+            <button class="result-button" id="next-level">next</button>
+            <button class="result-button" id="restart-level">restart</button>
+        </div>
+    </div>
+
     <div class="container">
         <div id="text"></div>
         <input type="text" id="text-field">
