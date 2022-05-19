@@ -27,6 +27,7 @@
 #text-field {
     font-size: 1.3rem;
     color: white;
+    font-family: monospace;
     background-color: #323240;
     border: none;
     width: 70%;
