@@ -8,6 +8,34 @@ loadLevel(0, levels)
 
 seperateToSpans(textElement)
 
+textFieldElement.addEventListener('input', e => {
+    highlightText(textElement.querySelectorAll('span'), e.target.value)
+})
+
+function highlightText (letterElements, typedText) {
+    for(let i = 0; i < letterElements.length; i++){
+        if(typedText[i]) {
+            if(i === typedText.length) {
+                letterElements[i].classList.remove('letter--wrong')
+                letterElements[i].classList.remove('letter--correct')
+                letterElements[i].classList.add('letter--current')
+            } else if (letterElements[i].textContent == typedText[i]) {
+                letterElements[i].classList.remove('letter--wrong')
+                letterElements[i].classList.add('letter--correct')
+                letterElements[i].classList.remove('letter--current')
+            } else {
+                letterElements[i].classList.add('letter--wrong')
+                letterElements[i].classList.remove('letter--correct')
+                letterElements[i].classList.remove('letter--current')
+            }
+        } else {
+            letterElements[i].classList.remove('letter--wrong')
+            letterElements[i].classList.remove('letter--correct')
+            letterElements[i].classList.remove('letter--current')
+        }
+    }
+}
+
 function seperateToSpans(element) {
     let text = element.textContent
     let res = ''
