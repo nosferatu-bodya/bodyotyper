@@ -4,13 +4,63 @@ import levels from './levels.js'
 const textElement = document.querySelector('#text')
 const textFieldElement = document.querySelector('#text-field')
 
-loadLevel(0, levels)
+let currentLevel = 0
+
+let started = false
+let startTime
+let endTime
+
+loadLevel(currentLevel, levels)
 
 seperateToSpans(textElement)
 
 textFieldElement.addEventListener('input', e => {
+
+    if(!started) {
+        startTime = new Date().getTime()
+        started = true
+    }
+
     highlightText(textElement.querySelectorAll('span'), e.target.value)
+
+    if(e.target.value.length >= levels[currentLevel].text.length) {
+        textFieldElement.blur()
+
+        endTime = new Date().getTime()
+        let time = (endTime - startTime) / 1000 / 60
+        let words = levels[currentLevel].text.split(' ').length
+        let speed = getSpeed(time, words)
+
+        let letters = levels[currentLevel].text.length
+        let mistakes = textElement.querySelectorAll('.letter--wrong').length
+        let accuracy = getAccuracy(letters, mistakes)
+
+        showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minWPM)
+    }
 })
+
+function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
+    const resultElement = document.querySelector('.result')
+
+    document.querySelector('#user-wpm').textContent = speed
+    document.querySelector('#level-wpm').textContent = levelSpeed
+    document.querySelector('#user-accuracy').textContent = accuracy
+    document.querySelector('#level-accuracy').textContent = levelAccuracy
+
+    if(speed >= levelSpeed && accuracy >= levelAccuracy) {
+        resultElement.classList.add('result--win')
+    } else {
+        resultElement.classList.add('result--lose')
+    }
+}
+
+function getAccuracy(letters, mistakes) {
+    return 100 - Math.floor((100 * mistakes) / letters)
+}
+
+function getSpeed(time, words) {
+    return (words / time).toFixed(1)
+}
 
 function highlightText (letterElements, typedText) {
     for(let i = 0; i < letterElements.length; i++){
