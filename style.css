@@ -63,10 +63,9 @@
 
 .result {
     background-color: rgba(16, 12, 21, 0.688);
-    /* backdrop-filter: blur(10px); */
     font-family: sans-serif;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -78,10 +77,12 @@
 }
 
 .result--win {
+    display: flex;
     color:rgb(109, 255, 153);
 }
 
 .result--lose {
+    display: flex;
     color:rgb(255, 69, 88);
 }
 
