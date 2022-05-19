@@ -36,3 +36,25 @@
 #text-field:focus {
     outline: none;
 }
+
+/* LETTERS--------------------------------- */
+
+#text span {
+    border-radius: 3px;
+}
+
+.letter--correct {
+    background-color: rgb(109, 255, 153);
+    color: black;
+}
+
+.letter--wrong {
+    background-color: rgb(255, 89, 108);
+    color: black;
+}
+
+.letter--current {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.163);
+}
