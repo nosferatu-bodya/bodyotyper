@@ -10,6 +10,11 @@ let started = false
 let startTime
 let endTime
 
+loadLevelMenu(levels, levelAvailability, (level, i) => {
+    currentLevel = i
+    onLevelClick(level, i)
+})
+
 loadLevel(currentLevel, levels)
 
 seperateToSpans(textElement)
@@ -38,6 +43,35 @@ textFieldElement.addEventListener('input', e => {
         showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minWPM)
     }
 })
+
+function onLevelClick (level, i) {
+    let levelElements = document.querySelectorAll('.level')
+    levelElements.forEach(e => e.classList.remove('level--active'))
+    level.classList.add('level--active')
+    loadLevel(i, levels)
+    seperateToSpans(textElement)
+}
+
+function loadLevelMenu (levels, levelAvailability, onLevelClick) {
+    const menu = document.querySelector('#levels')
+    let firstUncompleteLevel = levelAvailability.indexOf(false)
+
+    for(let i = 0; i < levels.length; i++) {
+        let level = document.createElement('button')
+        level.classList.add('level')
+        if(levelAvailability[i]) {
+            level.classList.add('level--completed')
+        }
+        if(i === firstUncompleteLevel) {
+            level.classList.add('level--active')
+        }
+        level.textContent = 'level ' + (i + 1) 
+        menu.appendChild(level)
+        level.addEventListener('click', () => {
+            onLevelClick(level, i)
+        })
+    }
+}
 
 function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
     const resultElement = document.querySelector('.result')
