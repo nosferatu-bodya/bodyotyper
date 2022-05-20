@@ -4,16 +4,19 @@ import {levels, levelAvailability, updateData} from './levels.js'
 const textElement = document.querySelector('#text')
 const textFieldElement = document.querySelector('#text-field')
 
-let currentLevel = 0
+let currentLevel = levelAvailability.indexOf(false)
 
 let started = false
 let startTime
 let endTime
 
 loadLevelMenu(levels, levelAvailability, (level, i) => {
+    started = false
     currentLevel = i
     onLevelClick(level, i)
 })
+
+selectLevel(currentLevel)
 
 loadLevel(currentLevel, levels)
 
@@ -40,21 +43,47 @@ textFieldElement.addEventListener('input', e => {
         let mistakes = textElement.querySelectorAll('.letter--wrong').length
         let accuracy = getAccuracy(letters, mistakes)
 
-        showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minWPM)
+        showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minAccuracy)
+
+        if(speed >= levels[currentLevel].minWPM && accuracy >= levels[currentLevel].minAccuracy) {
+            updateData(currentLevel, true)
+            updateLevelMenu(levelAvailability)
+        }
     }
 })
 
-function onLevelClick (level, i) {
-    let levelElements = document.querySelectorAll('.level')
+document.querySelector('#next-level').addEventListener('click', () => {
+    started = false
+    currentLevel += 1
+    loadLevel(currentLevel, levels)
+    seperateToSpans(textElement)
+    selectLevel(currentLevel)
+    hideMessage()
+})
+
+document.querySelector('#restart-level').addEventListener('click', () => {
+    started = false
+    loadLevel(currentLevel, levels)
+    seperateToSpans(textElement)
+    hideMessage()
+})
+
+function selectLevel (i) {
+    const levelElements = document.querySelectorAll('.level')
+
     levelElements.forEach(e => e.classList.remove('level--active'))
-    level.classList.add('level--active')
+
+    levelElements[i].classList.add('level--active')
+}
+
+function onLevelClick (level, i) {
+    selectLevel(i)
     loadLevel(i, levels)
     seperateToSpans(textElement)
 }
 
 function loadLevelMenu (levels, levelAvailability, onLevelClick) {
     const menu = document.querySelector('#levels')
-    let firstUncompleteLevel = levelAvailability.indexOf(false)
 
     for(let i = 0; i < levels.length; i++) {
         let level = document.createElement('button')
@@ -62,15 +91,22 @@ function loadLevelMenu (levels, levelAvailability, onLevelClick) {
         if(levelAvailability[i]) {
             level.classList.add('level--completed')
         }
-        if(i === firstUncompleteLevel) {
-            level.classList.add('level--active')
-        }
         level.textContent = 'level ' + (i + 1) 
         menu.appendChild(level)
         level.addEventListener('click', () => {
             onLevelClick(level, i)
         })
     }
+}
+
+function updateLevelMenu (levelAvailability) {
+    const levelElements = document.querySelectorAll('.level')
+
+    levelElements.forEach((e, i) => {
+        if(levelAvailability[i]) {
+            e.classList.add('level--completed')
+        }
+    })
 }
 
 function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
@@ -86,6 +122,12 @@ function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
     } else {
         resultElement.classList.add('result--lose')
     }
+}
+
+function hideMessage () {
+    const resultElement = document.querySelector('.result')
+    resultElement.classList.remove('result--win')
+    resultElement.classList.remove('result--lose')
 }
 
 function getAccuracy(letters, mistakes) {
