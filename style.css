@@ -118,3 +118,75 @@
     transform: translate(0px, -7px);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.582);
 }
+
+
+/* -------------- LEVEL MENU ------------ */
+
+.level-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: rgb(21, 19, 25);
+    box-shadow: inset 10px 0 20px black;
+    overflow-y: auto;
+}
+
+.level-menu-title {
+    color: white;
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.levels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.level {
+    position: relative;
+    border: none;
+    background-color: #26252e59;
+    color: #ffffff9d;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.level::after {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    background-color: rgb(99, 100, 108);
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    right: 10px;
+    box-shadow: 0 0 5px black;
+}
+
+.level--completed:after {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    background-color: rgb(96, 255, 160);
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    right: 10px;
+    box-shadow: 0 0 5px black;
+}
+
+.level--active {
+    background-color: #26252e;
+    color: white;
+    border-radius: 10px;
+    margin: 0 10px;
+    box-shadow: 0 0 10px black;
+}
+
+.level:hover {
+    cursor: pointer;
+    background-color: #26252e;
+    color: white;
+}
