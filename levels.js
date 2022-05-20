@@ -41,4 +41,11 @@ const levels = [
     }
 ]
 
-export default levels
+let levelAvailability = localStorage.getItem('levelAvailability') ? JSON.parse(localStorage.getItem('levelAvilability')) : Array(levels.length).fill(false)
+
+function updateData (index, val) {
+    levelAvailability[index] = val
+    localStorage.setItem('levelAvailability', JSON.stringify(levelAvailability))
+}
+
+export {levels, levelAvailability, updateData}

@@ -1,5 +1,5 @@
 
-import levels from './levels.js'
+import {levels, levelAvailability, updateData} from './levels.js'
 
 const textElement = document.querySelector('#text')
 const textFieldElement = document.querySelector('#text-field')
