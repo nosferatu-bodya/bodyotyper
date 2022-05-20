@@ -22,6 +22,8 @@ loadLevel(currentLevel, levels)
 
 seperateToSpans(textElement)
 
+highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
+
 textFieldElement.addEventListener('input', e => {
 
     if(!started) {
@@ -58,6 +60,7 @@ document.querySelector('#next-level').addEventListener('click', () => {
     loadLevel(currentLevel, levels)
     seperateToSpans(textElement)
     selectLevel(currentLevel)
+    highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
     hideMessage()
 })
 
@@ -65,6 +68,7 @@ document.querySelector('#restart-level').addEventListener('click', () => {
     started = false
     loadLevel(currentLevel, levels)
     seperateToSpans(textElement)
+    highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
     hideMessage()
 })
 
@@ -80,6 +84,7 @@ function onLevelClick (level, i) {
     selectLevel(i)
     loadLevel(i, levels)
     seperateToSpans(textElement)
+    highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
 }
 
 function loadLevelMenu (levels, levelAvailability, onLevelClick) {
@@ -141,11 +146,7 @@ function getSpeed(time, words) {
 function highlightText (letterElements, typedText) {
     for(let i = 0; i < letterElements.length; i++){
         if(typedText[i]) {
-            if(i === typedText.length) {
-                letterElements[i].classList.remove('letter--wrong')
-                letterElements[i].classList.remove('letter--correct')
-                letterElements[i].classList.add('letter--current')
-            } else if (letterElements[i].textContent == typedText[i]) {
+            if (letterElements[i].textContent == typedText[i]) {
                 letterElements[i].classList.remove('letter--wrong')
                 letterElements[i].classList.add('letter--correct')
                 letterElements[i].classList.remove('letter--current')
@@ -155,9 +156,15 @@ function highlightText (letterElements, typedText) {
                 letterElements[i].classList.remove('letter--current')
             }
         } else {
-            letterElements[i].classList.remove('letter--wrong')
-            letterElements[i].classList.remove('letter--correct')
-            letterElements[i].classList.remove('letter--current')
+            if(i == typedText.length) {
+                letterElements[i].classList.remove('letter--wrong')
+                letterElements[i].classList.remove('letter--correct')
+                letterElements[i].classList.add('letter--current')
+            } else {
+                letterElements[i].classList.remove('letter--wrong')
+                letterElements[i].classList.remove('letter--correct')
+                letterElements[i].classList.remove('letter--current')
+            }
         }
     }
 }
