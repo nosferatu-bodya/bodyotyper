@@ -23,6 +23,7 @@ loadLevel(currentLevel, levels)
 seperateToSpans(textElement)
 
 highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
+highlightKey(textElement.textContent[textFieldElement.value.length])
 
 textFieldElement.addEventListener('input', e => {
 
@@ -31,6 +32,7 @@ textFieldElement.addEventListener('input', e => {
         started = true
     }
 
+    highlightKey(textElement.textContent[e.target.value.length])
     highlightText(textElement.querySelectorAll('span'), e.target.value)
 
     if(e.target.value.length >= levels[currentLevel].text.length) {
@@ -61,6 +63,7 @@ document.querySelector('#next-level').addEventListener('click', () => {
     seperateToSpans(textElement)
     selectLevel(currentLevel)
     highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
+    highlightKey(textElement.textContent[textFieldElement.value.length])
     hideMessage()
 })
 
@@ -69,8 +72,185 @@ document.querySelector('#restart-level').addEventListener('click', () => {
     loadLevel(currentLevel, levels)
     seperateToSpans(textElement)
     highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
+    highlightKey(textElement.textContent[textFieldElement.value.length])
     hideMessage()
 })
+
+function highlightKey (symbol) {
+    if(symbol) {
+        let ids = symbolToKeyIDs(symbol)
+    
+        document.querySelectorAll('.key').forEach(k => k.classList.remove('key--active'))
+    
+        document.querySelectorAll(ids).forEach(e => e.classList.add('key--active'))
+    }
+}
+
+function symbolToKeyIDs (symbol) {
+    let ids = []
+    switch (symbol) {
+        case '!': {
+            ids.push('key-1')
+            ids.push('key-right-shift')
+            break
+        }
+        case '@': {
+            ids.push('key-2')
+            ids.push('key-right-shift')
+            break
+        }
+        case '#': {
+            ids.push('key-3')
+            ids.push('key-right-shift')
+            break
+        }
+        case '$': {
+            ids.push('key-4')
+            ids.push('key-right-shift')
+            break
+        }
+        case '%': {
+            ids.push('key-5')
+            ids.push('key-right-shift')
+            break
+        }
+        case '^': {
+            ids.push('key-6')
+            ids.push('key-left-shift')
+            break
+        }
+        case '&': {
+            ids.push('key-7')
+            ids.push('key-left-shift')
+            break
+        }
+        case '*': {
+            ids.push('key-8')
+            ids.push('key-left-shift')
+            break
+        }
+        case '(': {
+            ids.push('key-9')
+            ids.push('key-left-shift')
+            break
+        }
+        case ')': {
+            ids.push('key-0')
+            ids.push('key-left-shift')
+            break
+        }
+        case '-': {
+            ids.push('key-dash')
+            break
+        }
+        case '_': {
+            ids.push('key-dash')
+            ids.push('key-left-shift')
+            break
+        }
+        case '=': {
+            ids.push('key-equals')
+            break
+        }
+        case '+': {
+            ids.push('key-equals')
+            ids.push('key-left-shift')
+            break
+        }
+        case '[': {
+            ids.push('key-square-bracket-open')
+            break
+        }
+        case '{': {
+            ids.push('key-square-bracket-open')
+            ids.push('key-left-shift')
+            break
+        }
+        case ']': {
+            ids.push('key-square-bracket-close')
+            break
+        }
+        case '}': {
+            ids.push('key-square-bracket-close')
+            ids.push('key-left-shift')
+            break
+        }
+        case ';': {
+            ids.push('key-semicolon')
+            break
+        }
+        case ':': {
+            ids.push('key-semicolon')
+            ids.push('key-left-shift')
+            break
+        }
+        case '\'': {
+            ids.push('key-single-quote')
+            break
+        }
+        case '\"': {
+            ids.push('key-single-quote')
+            ids.push('key-left-shift')
+            break
+        }
+        case ',': {
+            ids.push('key-coma')
+            break
+        }
+        case '<': {
+            ids.push('key-coma')
+            ids.push('key-left-shift')
+            break
+        }
+        case '.': {
+            ids.push('key-dot')
+            break
+        }
+        case '>': {
+            ids.push('key-dot')
+            ids.push('key-left-shift')
+            break
+        }
+        case '/': {
+            ids.push('key-slash')
+            break
+        }
+        case '?': {
+            ids.push('key-slash')
+            ids.push('key-left-shift')
+            break
+        }
+        case ' ': {
+            ids.push('key-space')
+            break
+        }
+        default: {
+            if(symbol.toLowerCase() !== symbol) {
+                let key = document.querySelector('#key-' + symbol.toLowerCase())
+                if(key.classList.contains('left-hand-key')) {
+                    ids.push('key-' + symbol.toLowerCase())
+                    ids.push('key-right-shift')
+                } else {
+                    ids.push('key-' + symbol.toLowerCase())
+                    ids.push('key-left-shift')
+                }
+            } else {
+                ids.push('key-' + symbol)
+            }
+        }
+    }
+
+    let str = ''
+    for(let i = 0; i < ids.length; i++) {
+        if(i === ids.length - 1) {
+            str += '#' + ids[i]
+        } else {
+            str += '#' + ids[i] + ', '
+        }
+    }
+
+    return str
+}
 
 function selectLevel (i) {
     const levelElements = document.querySelectorAll('.level')
@@ -85,6 +265,7 @@ function onLevelClick (level, i) {
     loadLevel(i, levels)
     seperateToSpans(textElement)
     highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
+    highlightKey(textElement.textContent[textFieldElement.value.length])
 }
 
 function loadLevelMenu (levels, levelAvailability, onLevelClick) {
