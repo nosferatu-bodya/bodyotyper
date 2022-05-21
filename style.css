@@ -17,6 +17,7 @@
 }
 
 #text {
+    user-select: none;
     font-size: 1.2rem;
     color: white;
     font-family: monospace;
@@ -75,18 +76,19 @@
     gap: 40px;
 
     position: absolute;
+    z-index: 1;
     width: 100%;
     height: 100vh;
 }
 
 .result--win {
     display: flex;
-    color:rgb(109, 255, 153);
+    color: rgb(109, 255, 153);
 }
 
 .result--lose {
     display: flex;
-    color:rgb(255, 69, 88);
+    color: rgb(255, 69, 88);
 }
 
 .result-header {
@@ -191,4 +193,101 @@
     cursor: pointer;
     background-color: #26252e;
     color: white;
+}
+
+
+/* ---------------------- KEYBOARD ---------------- */
+
+.keyboard {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.keyboard-row {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.space-row {
+    justify-content: center;
+}
+
+.key {
+    user-select: none;
+    opacity: 30%;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-family: monospace;
+    width: 5%;
+}
+
+.space-key {
+    width: 38%;
+}
+
+.backspace-key {
+    width: 8%;
+    font-size: 0.8rem;
+}
+
+.shift-key {
+    width: 10%;
+}
+
+.last-left-key {
+    margin-right: 6%;
+}
+
+
+@media (max-width: 1000px) {
+    .container {
+        align-items: flex-start;
+    }
+
+    #text {
+        width: 80%;
+    }
+
+    #text-field {
+        width: 80%;
+    }
+
+    .keyboard {
+        width: 80%;
+    }
+}
+
+.little-finger-key {
+    background-color: #ff2658;
+}
+
+.ring-finger-key {
+    background-color: #1f71ff;
+}
+
+.middle-finger-key {
+    background-color: #54ff68;
+}
+
+.index-finger-key {
+    background-color: #ff75ff;
+}
+
+.thumb-finger-key {
+    background-color: #ffea5e;
+}
+
+.key--active {
+    opacity: 100%;
+    box-shadow: 0 10px 20px black;
+    transform: translateY(-10%);
+    color: rgb(23, 22, 41);
+
 }
