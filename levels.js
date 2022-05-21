@@ -38,6 +38,11 @@ const levels = [
         text: "some ery short level, but still imposible",
         minWPM: 120,
         minAccuracy: 100
+    },
+    {
+        text: "lasASGLAJYdjf j13599u%@153264^la dflaj sdoi}{ {you are a pidar} []hehehre &9 ????? !!! ljas",
+        minWPM: 60,
+        minAccuracy: 100
     }
 ]
 
