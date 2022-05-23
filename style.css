@@ -196,9 +196,16 @@
 }
 
 
+.hints {
+    width: 70%;
+    display: flex;
+}
+
+
 /* ---------------------- KEYBOARD ---------------- */
 
 .keyboard {
+    flex-grow: 1;
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -307,4 +314,36 @@
     transform: translateY(-10%);
     color: rgb(23, 22, 41);
 
+}
+
+
+/* ----------------- FINGERS ----------------------- */
+
+.little-nail {
+    fill: #ff2658;
+    opacity: 30%;
+}
+
+.ring-nail {
+    fill: #1f71ff;
+    opacity: 30%;
+}
+
+.middle-nail {
+    fill: #54ff68;
+    opacity: 30%;
+}
+
+.index-nail {
+    fill: #ff75ff;
+    opacity: 30%;
+}
+
+.thumb-nail {
+    fill: #ffea5e;
+    opacity: 30%;
+}
+
+.nail--active {
+    opacity: 100%;
 }

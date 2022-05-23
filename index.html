@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -7,12 +8,14 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="result">
         <h1 class="result-header">You won!</h1>
         <p class="result-text">Your WPM: <span id="user-wpm">00</span> | level WPM: <span id="level-wpm">00</span></p>
-        <p class="result-text">Your accuracy: <span id="user-accuracy">00</span> | level accuracy: <span id="level-accuracy">00</span></p>
+        <p class="result-text">Your accuracy: <span id="user-accuracy">00</span> | level accuracy: <span
+                id="level-accuracy">00</span></p>
         <div class="result-buttons">
             <button class="result-button" id="next-level">next</button>
             <button class="result-button" id="restart-level">restart</button>
@@ -22,76 +25,117 @@
     <div class="level-menu">
         <h1 class="level-menu-title">Levels</h1>
         <div id="levels">
-            
+
         </div>
     </div>
 
     <div class="container">
         <div id="text"></div>
         <input type="text" id="text-field">
-        <div class="keyboard">
-            <div class="keyboard-row">
-                <div id="key-1" class="key left-hand-key little-finger-key">1 !</div>
-                <div id="key-2" class="key left-hand-key ring-finger-key">2 @</div>
-                <div id="key-3" class="key left-hand-key middle-finger-key">3 #</div>
-                <div id="key-4" class="key left-hand-key index-finger-key">4 $</div>
-                <div id="key-5" class="key left-hand-key last-left-key index-finger-key">5 %</div>
-                <div id="key-6" class="key index-finger-key">6 ^</div>
-                <div id="key-7" class="key index-finger-key">7 &</div>
-                <div id="key-8" class="key middle-finger-key">8 *</div>
-                <div id="key-9" class="key ring-finger-key">9 (</div>
-                <div id="key-0" class="key little-finger-key">0 )</div>
-                <div id="key-dash" class="key little-finger-key">- _</div>
-                <div id="key-equals" class="key little-finger-key">= +</div>
-                <div id="key-backspace" class="key backspace-key little-finger-key">backspace</div>
+
+        <div class="hints">
+            <svg width="118" height="213" viewBox="0 0 118 213" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="left-hand">
+                    <path id="left-meat"
+                        d="M75.0893 63.4168L87.1631 17.2573L84.3514 136.048L90.538 147.806L106.68 124.954L110.228 90.6766L117.037 130.423L106.68 166.325L84.3514 198.09L45.6357 212.239L13.3195 198.09L3.49364 177.957L0 152.427V101.635L20.0128 50.8429L9.75829 99.3187L13.3195 115.945L17.0315 125.771L23.8169 79.2997L57.392 22.8825L35.0637 75.9908V109.576L39.0851 115.945L50.7762 63.4168L79.7203 0.0508556L63.3462 67.0567V99.3187L69.4658 109.576L75.0893 63.4168Z"
+                        fill="#363B4E" />
+                    <path class="middle-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M56.2141 51.4451C60.1454 51.0151 64.0201 50.159 67.7693 48.8908L79.7203 0L56.2141 51.4451Z" />
+                    <path class="ring-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M41.9026 59.6548C39.7184 59.8538 37.5251 59.9285 35.3334 59.8787L57.392 22.8245L41.9026 59.6548Z" />
+                    <path class="little-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M11.8192 89.4975C9.07978 91.3666 6.11135 92.8651 2.99304 93.9586L20.0128 50.7762L11.8192 89.4975Z" />
+                    <path class="index-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M87.1631 17.4094L75.0893 63.5019L73.5218 76.3493C77.6188 76.8127 81.7508 76.6499 85.7772 75.877L87.1631 17.4094Z" />
+                    <path class="thumb-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M116.937 129.827C112.965 129.317 109.065 128.322 105.327 126.863L106.68 124.95L110.228 90.7221L116.937 129.827Z" />
+                </g>
+            </svg>
+
+            <div class="keyboard">
+                <div class="keyboard-row">
+                    <div id="key-1" class="key left-hand-key little-finger-key">1 !</div>
+                    <div id="key-2" class="key left-hand-key ring-finger-key">2 @</div>
+                    <div id="key-3" class="key left-hand-key middle-finger-key">3 #</div>
+                    <div id="key-4" class="key left-hand-key index-finger-key">4 $</div>
+                    <div id="key-5" class="key left-hand-key last-left-key index-finger-key">5 %</div>
+                    <div id="key-6" class="key index-finger-key">6 ^</div>
+                    <div id="key-7" class="key index-finger-key">7 &</div>
+                    <div id="key-8" class="key middle-finger-key">8 *</div>
+                    <div id="key-9" class="key ring-finger-key">9 (</div>
+                    <div id="key-0" class="key little-finger-key">0 )</div>
+                    <div id="key-dash" class="key little-finger-key">- _</div>
+                    <div id="key-equals" class="key little-finger-key">= +</div>
+                    <div id="key-backspace" class="key backspace-key little-finger-key">backspace</div>
+                </div>
+                <div class="keyboard-row">
+                    <div id="key-q" class="key left-hand-key little-finger-key">q</div>
+                    <div id="key-w" class="key left-hand-key ring-finger-key">w</div>
+                    <div id="key-e" class="key left-hand-key middle-finger-key">e</div>
+                    <div id="key-r" class="key left-hand-key index-finger-key">r</div>
+                    <div id="key-t" class="key left-hand-key last-left-key index-finger-key">t</div>
+                    <div id="key-y" class="key index-finger-key">y</div>
+                    <div id="key-u" class="key index-finger-key">u</div>
+                    <div id="key-i" class="key middle-finger-key">i</div>
+                    <div id="key-o" class="key ring-finger-key">o</div>
+                    <div id="key-p" class="key little-finger-key">p</div>
+                    <div id="key-square-brace-open" class="key little-finger-key">[ {</div>
+                    <div id="key-square-brace-close" class="key little-finger-key">] }</div>
+                </div>
+                <div class="keyboard-row">
+                    <div id="key-a" class="key left-hand-key home-row-key little-finger-key">a</div>
+                    <div id="key-s" class="key left-hand-key home-row-key ring-finger-key">s</div>
+                    <div id="key-d" class="key left-hand-key home-row-key middle-finger-key">d</div>
+                    <div id="key-f" class="key left-hand-key home-row-key index-finger-key">f</div>
+                    <div id="key-g" class="key left-hand-key last-left-key index-finger-key">g</div>
+                    <div id="key-h" class="key index-finger-key">h</div>
+                    <div id="key-j" class="key home-row-key index-finger-key">j</div>
+                    <div id="key-k" class="key home-row-key middle-finger-key">k</div>
+                    <div id="key-l" class="key home-row-key ring-finger-key">l</div>
+                    <div id="key-semicolon" class="key home-row-key little-finger-key">; :</div>
+                    <div id="key-single-quote" class="key little-finger-key">' "</div>
+                </div>
+                <div class="keyboard-row">
+                    <div id="key-left-shift" class="key left-hand-key shift-key little-finger-key">L Shift</div>
+                    <div id="key-z" class="key left-hand-key little-finger-key">z</div>
+                    <div id="key-x" class="key left-hand-key ring-finger-key">x</div>
+                    <div id="key-c" class="key left-hand-key middle-finger-key">c</div>
+                    <div id="key-v" class="key left-hand-key index-finger-key">v</div>
+                    <div id="key-b" class="key left-hand-key last-left-key index-finger-key">b</div>
+                    <div id="key-n" class="key index-finger-key">n</div>
+                    <div id="key-m" class="key index-finger-key">m</div>
+                    <div id="key-coma" class="key middle-finger-key">, &lt</div>
+                    <div id="key-dot" class="key ring-finger-key">. &gt</div>
+                    <div id="key-slash" class="key little-finger-key">/ ?</div>
+                    <div id="key-right-shift" class="key shift-key little-finger-key">R Shift</div>
+                </div>
+                <div class="keyboard-row space-row">
+                    <div id="key-space" class="key space-key thumb-finger-key">space</div>
+                </div>
             </div>
-            <div class="keyboard-row">
-                <div id="key-q" class="key left-hand-key little-finger-key">q</div>
-                <div id="key-w" class="key left-hand-key ring-finger-key">w</div>
-                <div id="key-e" class="key left-hand-key middle-finger-key">e</div>
-                <div id="key-r" class="key left-hand-key index-finger-key">r</div>
-                <div id="key-t" class="key left-hand-key last-left-key index-finger-key">t</div>
-                <div id="key-y" class="key index-finger-key">y</div>
-                <div id="key-u" class="key index-finger-key">u</div>
-                <div id="key-i" class="key middle-finger-key">i</div>
-                <div id="key-o" class="key ring-finger-key">o</div>
-                <div id="key-p" class="key little-finger-key">p</div>
-                <div id="key-square-brace-open" class="key little-finger-key">[ {</div>
-                <div id="key-square-brace-close" class="key little-finger-key">] }</div>
-            </div>
-            <div class="keyboard-row">
-                <div id="key-a" class="key left-hand-key home-row-key little-finger-key">a</div>
-                <div id="key-s" class="key left-hand-key home-row-key ring-finger-key">s</div>
-                <div id="key-d" class="key left-hand-key home-row-key middle-finger-key">d</div>
-                <div id="key-f" class="key left-hand-key home-row-key index-finger-key">f</div>
-                <div id="key-g" class="key left-hand-key last-left-key index-finger-key">g</div>
-                <div id="key-h" class="key index-finger-key">h</div>
-                <div id="key-j" class="key home-row-key index-finger-key">j</div>
-                <div id="key-k" class="key home-row-key middle-finger-key">k</div>
-                <div id="key-l" class="key home-row-key ring-finger-key">l</div>
-                <div id="key-semicolon" class="key home-row-key little-finger-key">; :</div>
-                <div id="key-single-quote" class="key little-finger-key">' "</div>
-            </div>
-            <div class="keyboard-row">
-                <div id="key-left-shift" class="key left-hand-key shift-key little-finger-key">L Shift</div>
-                <div id="key-z" class="key left-hand-key little-finger-key">z</div>
-                <div id="key-x" class="key left-hand-key ring-finger-key">x</div>
-                <div id="key-c" class="key left-hand-key middle-finger-key">c</div>
-                <div id="key-v" class="key left-hand-key index-finger-key">v</div>
-                <div id="key-b" class="key left-hand-key last-left-key index-finger-key">b</div>
-                <div id="key-n" class="key index-finger-key">n</div>
-                <div id="key-m" class="key index-finger-key">m</div>
-                <div id="key-coma" class="key middle-finger-key">, &lt</div>
-                <div id="key-dot" class="key ring-finger-key">. &gt</div>
-                <div id="key-slash" class="key little-finger-key">/ ?</div>
-                <div id="key-right-shift" class="key shift-key little-finger-key">R Shift</div>
-            </div>
-            <div class="keyboard-row space-row">
-                <div id="key-space" class="key space-key thumb-finger-key">space</div>
-            </div>
+
+            <svg width="118" height="213" viewBox="0 0 118 213" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="right-hand">
+                    <path id="right-meat"
+                        d="M41.9477 63.4168L29.8739 17.2573L32.6856 136.048L26.4989 147.806L10.3573 124.954L6.80876 90.6766L0 130.423L10.3573 166.325L32.6856 198.09L71.4013 212.239L103.717 198.09L113.543 177.957L117.037 152.427V101.635L97.0242 50.8429L107.279 99.3187L103.717 115.945L100.005 125.771L93.2201 79.2997L59.645 22.8825L81.9733 75.9908V109.576L77.9519 115.945L66.2608 63.4168L37.3167 0.0508556L53.6907 67.0567V99.3187L47.5711 109.576L41.9477 63.4168Z"
+                        fill="#363B4E" />
+                    <path class="middle-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M60.8229 51.4451C56.8915 51.0151 53.0169 50.159 49.2677 48.8908L37.3167 0L60.8229 51.4451Z" />
+                    <path class="ring-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M75.1344 59.6548C77.3186 59.8538 79.5119 59.9285 81.7036 59.8787L59.645 22.8245L75.1344 59.6548Z" />
+                    <path class="little-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M105.218 89.4975C107.957 91.3666 110.926 92.8651 114.044 93.9586L97.0242 50.7762L105.218 89.4975Z" />
+                    <path class="index-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M29.8739 17.4094L41.9477 63.5019L43.5152 76.3493C39.4182 76.8127 35.2862 76.6499 31.2598 75.877L29.8739 17.4094Z" />
+                    <path class="thumb-nail" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M0.100037 129.827C4.0724 129.317 7.97244 128.322 11.7105 126.863L10.3573 124.95L6.80875 90.7221L0.100037 129.827Z" />
+                </g>
+            </svg>
+
         </div>
     </div>
-    
+
     <script type="module" src="index.js"></script>
 </body>
+
 </html>
