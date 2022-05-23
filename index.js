@@ -304,8 +304,10 @@ function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
     document.querySelector('#level-accuracy').textContent = levelAccuracy
 
     if(speed >= levelSpeed && accuracy >= levelAccuracy) {
+        document.querySelector('.result-header').textContent = 'You won!'
         resultElement.classList.add('result--win')
     } else {
+        document.querySelector('.result-header').textContent = 'You lost! Fucking loser!'
         resultElement.classList.add('result--lose')
     }
 }
