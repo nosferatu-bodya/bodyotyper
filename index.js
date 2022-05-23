@@ -86,33 +86,35 @@ function highlightFinger(symbol) {
     }
 
     const keysToHighlight = symbolToKeyIDs(symbol)
-    let hands = []
     let fingers = []
 
     document.querySelectorAll('.nail').forEach(n => n.classList.remove('nail--active'))
 
     document.querySelectorAll(keysToHighlight).forEach(k => {
+        let curFinger = {}
         if (k.classList.contains('left-hand-key')) {
-            hands.push('left-hand')
+            curFinger.hand = 'left-hand'
         } else {
-            hands.push('right-hand')
+            curFinger.hand = 'right-hand'
         }
 
         if (k.classList.contains('little-finger-key')) {
-            fingers.push('little-nail')
+            curFinger.finger = 'little-nail'
         } else if (k.classList.contains('ring-finger-key')) {
-            fingers.push('ring-nail')
+            curFinger.finger = 'ring-nail'
         } else if (k.classList.contains('middle-finger-key')) {
-            fingers.push('middle-nail')
+            curFinger.finger = 'middle-nail'
         } else if (k.classList.contains('index-finger-key')) {
-            fingers.push('index-nail')
+            curFinger.finger = 'index-nail'
         } else if (k.classList.contains('thumb-finger-key')) {
-            fingers.push('thumb-nail')
+            curFinger.finger = 'thumb-nail'
         }
+
+        fingers.push(curFinger)
     })
 
     fingers.forEach((f, i) => {
-        const selector = '#' + hands[i] + ' .' + f
+        const selector = '#' + f.hand + ' .' + f.finger
         document.querySelector(selector).classList.add('nail--active')
     })
 
