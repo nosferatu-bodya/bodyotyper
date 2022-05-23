@@ -195,6 +195,7 @@
     color: white;
 }
 
+/* ----------------------------- HINTS ------------------------- */
 
 .hints {
     width: 70%;
@@ -269,25 +270,6 @@
     box-shadow: 1px 1px 3px black;
 }
 
-
-@media (max-width: 1250px) {
-    .container {
-        align-items: flex-start;
-    }
-
-    #text {
-        width: 80%;
-    }
-
-    #text-field {
-        width: 80%;
-    }
-
-    .keyboard {
-        width: 80%;
-    }
-}
-
 .little-finger-key {
     background-color: #ff2658;
 }
@@ -319,31 +301,58 @@
 
 /* ----------------- FINGERS ----------------------- */
 
+.nail {
+    opacity: 15%;
+}
+
 .little-nail {
     fill: #ff2658;
-    opacity: 30%;
 }
 
 .ring-nail {
     fill: #1f71ff;
-    opacity: 30%;
 }
 
 .middle-nail {
     fill: #54ff68;
-    opacity: 30%;
 }
 
 .index-nail {
     fill: #ff75ff;
-    opacity: 30%;
 }
 
 .thumb-nail {
     fill: #ffea5e;
-    opacity: 30%;
 }
 
 .nail--active {
     opacity: 100%;
+}
+
+
+
+@media (max-width: 1250px) {
+    .container {
+        align-items: flex-start;
+    }
+
+    #text {
+        width: 80%;
+    }
+
+    #text-field {
+        width: 80%;
+    }
+
+    .keyboard {
+        width: 80%;
+    }
+
+    .key {
+        font-size: 1rem;
+    }
+
+    .hand {
+        display: none;
+    }
 }
