@@ -1,5 +1,5 @@
 
-import {levels, levelAvailability, updateData} from './levels.js'
+import { levels, levelAvailability, updateData } from './levels.js'
 
 const textElement = document.querySelector('#text')
 const textFieldElement = document.querySelector('#text-field')
@@ -24,18 +24,20 @@ seperateToSpans(textElement)
 
 highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
 highlightKey(textElement.textContent[textFieldElement.value.length])
+highlightFinger(textElement.textContent[textFieldElement.value.length])
 
 textFieldElement.addEventListener('input', e => {
 
-    if(!started) {
+    if (!started) {
         startTime = new Date().getTime()
         started = true
     }
 
     highlightKey(textElement.textContent[e.target.value.length])
     highlightText(textElement.querySelectorAll('span'), e.target.value)
+    highlightFinger(textElement.textContent[e.target.value.length])
 
-    if(e.target.value.length >= levels[currentLevel].text.length) {
+    if (e.target.value.length >= levels[currentLevel].text.length) {
         textFieldElement.blur()
 
         endTime = new Date().getTime()
@@ -49,7 +51,7 @@ textFieldElement.addEventListener('input', e => {
 
         showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minAccuracy)
 
-        if(speed >= levels[currentLevel].minWPM && accuracy >= levels[currentLevel].minAccuracy) {
+        if (speed >= levels[currentLevel].minWPM && accuracy >= levels[currentLevel].minAccuracy) {
             updateData(currentLevel, true)
             updateLevelMenu(levelAvailability)
         }
@@ -64,6 +66,7 @@ document.querySelector('#next-level').addEventListener('click', () => {
     selectLevel(currentLevel)
     highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
     highlightKey(textElement.textContent[textFieldElement.value.length])
+    highlightFinger(textElement.textContent[textFieldElement.value.length])
     hideMessage()
 })
 
@@ -73,20 +76,61 @@ document.querySelector('#restart-level').addEventListener('click', () => {
     seperateToSpans(textElement)
     highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
     highlightKey(textElement.textContent[textFieldElement.value.length])
+    highlightFinger(textElement.textContent[textFieldElement.value.length])
     hideMessage()
 })
 
-function highlightKey (symbol) {
-    if(symbol) {
-        let ids = symbolToKeyIDs(symbol)
-    
-        document.querySelectorAll('.key').forEach(k => k.classList.remove('key--active'))
-    
-        document.querySelectorAll(ids).forEach(e => e.classList.add('key--active'))
+function highlightFinger(symbol) {
+    if (!symbol) {
+        return
     }
+
+    const keysToHighlight = symbolToKeyIDs(symbol)
+    let hands = []
+    let fingers = []
+
+    document.querySelectorAll('.nail').forEach(n => n.classList.remove('nail--active'))
+
+    document.querySelectorAll(keysToHighlight).forEach(k => {
+        if (k.classList.contains('left-hand-key')) {
+            hands.push('left-hand')
+        } else {
+            hands.push('right-hand')
+        }
+
+        if (k.classList.contains('little-finger-key')) {
+            fingers.push('little-nail')
+        } else if (k.classList.contains('ring-finger-key')) {
+            fingers.push('ring-nail')
+        } else if (k.classList.contains('middle-finger-key')) {
+            fingers.push('middle-nail')
+        } else if (k.classList.contains('index-finger-key')) {
+            fingers.push('index-nail')
+        } else if (k.classList.contains('thumb-finger-key')) {
+            fingers.push('thumb-nail')
+        }
+    })
+
+    fingers.forEach((f, i) => {
+        const selector = '#' + hands[i] + ' .' + f
+        document.querySelector(selector).classList.add('nail--active')
+    })
+
 }
 
-function symbolToKeyIDs (symbol) {
+function highlightKey(symbol) {
+    if (!symbol) {
+        return
+    }
+
+    let ids = symbolToKeyIDs(symbol)
+
+    document.querySelectorAll('.key').forEach(k => k.classList.remove('key--active'))
+
+    document.querySelectorAll(ids).forEach(e => e.classList.add('key--active'))
+}
+
+function symbolToKeyIDs(symbol) {
     let ids = []
     switch (symbol) {
         case '!': {
@@ -225,9 +269,9 @@ function symbolToKeyIDs (symbol) {
             break
         }
         default: {
-            if(symbol.toLowerCase() !== symbol) {
+            if (symbol.toLowerCase() !== symbol) {
                 let key = document.querySelector('#key-' + symbol.toLowerCase())
-                if(key.classList.contains('left-hand-key')) {
+                if (key.classList.contains('left-hand-key')) {
                     ids.push('key-' + symbol.toLowerCase())
                     ids.push('key-right-shift')
                 } else {
@@ -241,8 +285,8 @@ function symbolToKeyIDs (symbol) {
     }
 
     let str = ''
-    for(let i = 0; i < ids.length; i++) {
-        if(i === ids.length - 1) {
+    for (let i = 0; i < ids.length; i++) {
+        if (i === ids.length - 1) {
             str += '#' + ids[i]
         } else {
             str += '#' + ids[i] + ', '
@@ -252,7 +296,7 @@ function symbolToKeyIDs (symbol) {
     return str
 }
 
-function selectLevel (i) {
+function selectLevel(i) {
     const levelElements = document.querySelectorAll('.level')
 
     levelElements.forEach(e => e.classList.remove('level--active'))
@@ -260,7 +304,7 @@ function selectLevel (i) {
     levelElements[i].classList.add('level--active')
 }
 
-function onLevelClick (level, i) {
+function onLevelClick(level, i) {
     selectLevel(i)
     loadLevel(i, levels)
     seperateToSpans(textElement)
@@ -268,16 +312,16 @@ function onLevelClick (level, i) {
     highlightKey(textElement.textContent[textFieldElement.value.length])
 }
 
-function loadLevelMenu (levels, levelAvailability, onLevelClick) {
+function loadLevelMenu(levels, levelAvailability, onLevelClick) {
     const menu = document.querySelector('#levels')
 
-    for(let i = 0; i < levels.length; i++) {
+    for (let i = 0; i < levels.length; i++) {
         let level = document.createElement('button')
         level.classList.add('level')
-        if(levelAvailability[i]) {
+        if (levelAvailability[i]) {
             level.classList.add('level--completed')
         }
-        level.textContent = 'level ' + (i + 1) 
+        level.textContent = 'level ' + (i + 1)
         menu.appendChild(level)
         level.addEventListener('click', () => {
             onLevelClick(level, i)
@@ -285,17 +329,17 @@ function loadLevelMenu (levels, levelAvailability, onLevelClick) {
     }
 }
 
-function updateLevelMenu (levelAvailability) {
+function updateLevelMenu(levelAvailability) {
     const levelElements = document.querySelectorAll('.level')
 
     levelElements.forEach((e, i) => {
-        if(levelAvailability[i]) {
+        if (levelAvailability[i]) {
             e.classList.add('level--completed')
         }
     })
 }
 
-function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
+function showMessage(speed, levelSpeed, accuracy, levelAccuracy) {
     const resultElement = document.querySelector('.result')
 
     document.querySelector('#user-wpm').textContent = speed
@@ -303,7 +347,7 @@ function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
     document.querySelector('#user-accuracy').textContent = accuracy
     document.querySelector('#level-accuracy').textContent = levelAccuracy
 
-    if(speed >= levelSpeed && accuracy >= levelAccuracy) {
+    if (speed >= levelSpeed && accuracy >= levelAccuracy) {
         document.querySelector('.result-header').textContent = 'You won!'
         resultElement.classList.add('result--win')
     } else {
@@ -312,7 +356,7 @@ function showMessage (speed, levelSpeed, accuracy, levelAccuracy) {
     }
 }
 
-function hideMessage () {
+function hideMessage() {
     const resultElement = document.querySelector('.result')
     resultElement.classList.remove('result--win')
     resultElement.classList.remove('result--lose')
@@ -326,9 +370,9 @@ function getSpeed(time, words) {
     return (words / time).toFixed(1)
 }
 
-function highlightText (letterElements, typedText) {
-    for(let i = 0; i < letterElements.length; i++){
-        if(typedText[i]) {
+function highlightText(letterElements, typedText) {
+    for (let i = 0; i < letterElements.length; i++) {
+        if (typedText[i]) {
             if (letterElements[i].textContent == typedText[i]) {
                 letterElements[i].classList.remove('letter--wrong')
                 letterElements[i].classList.add('letter--correct')
@@ -339,7 +383,7 @@ function highlightText (letterElements, typedText) {
                 letterElements[i].classList.remove('letter--current')
             }
         } else {
-            if(i == typedText.length) {
+            if (i == typedText.length) {
                 letterElements[i].classList.remove('letter--wrong')
                 letterElements[i].classList.remove('letter--correct')
                 letterElements[i].classList.add('letter--current')
@@ -359,14 +403,14 @@ function seperateToSpans(element) {
     element.querySelectorAll('span').forEach(c => c.remove())
     element.textContent = ''
 
-    for(let i = 0; i < text.length; i++){
+    for (let i = 0; i < text.length; i++) {
         res += '<span>' + text[i] + '</span>'
     }
 
     element.innerHTML = res
 }
 
-function loadLevel (index, levels) {
+function loadLevel(index, levels) {
     document.querySelector('#text').textContent = levels[index].text
     document.querySelector('#text-field').value = ''
 }
