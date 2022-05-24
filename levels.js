@@ -43,6 +43,11 @@ const levels = [
         text: "lasASGLAJYdjf j13599u%@153264^la dflaj sdoi}{ {you are a pidar} []hehehre &9 ????? !!! ljas",
         minWPM: 60,
         minAccuracy: 100
+    },
+    {
+        text: "the last level",
+        minWPM: 20,
+        minAccuracy: 100
     }
 ]
 

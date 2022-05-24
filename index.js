@@ -58,7 +58,10 @@ textFieldElement.addEventListener('input', e => {
         let mistakes = textElement.querySelectorAll('.letter--wrong').length
         let accuracy = getAccuracy(letters, mistakes)
 
-        showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minAccuracy)
+        console.log( currentLevel >= (levels.length - 1))
+        let isLastLevel = currentLevel >= (levels.length - 1)
+
+        showMessage(speed, levels[currentLevel].minWPM, accuracy, levels[currentLevel].minAccuracy, isLastLevel)
 
         if (speed >= levels[currentLevel].minWPM && accuracy >= levels[currentLevel].minAccuracy) {
             updateData(currentLevel, true)
@@ -352,8 +355,9 @@ function updateLevelMenu(levelAvailability) {
     })
 }
 
-function showMessage(speed, levelSpeed, accuracy, levelAccuracy) {
+function showMessage(speed, levelSpeed, accuracy, levelAccuracy, isLastLevel) {
     const resultElement = document.querySelector('.result')
+    resultElement.querySelector('#next-level').style.display = 'inline'
 
     document.querySelector('#user-wpm').textContent = speed
     document.querySelector('#level-wpm').textContent = levelSpeed
@@ -366,6 +370,10 @@ function showMessage(speed, levelSpeed, accuracy, levelAccuracy) {
     } else {
         document.querySelector('.result-header').textContent = 'You lost! Fucking loser!'
         resultElement.classList.add('result--lose')
+    }
+
+    if(isLastLevel) {
+        resultElement.querySelector('#next-level').style.display = 'none'
     }
 }
 
