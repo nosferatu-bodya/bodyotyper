@@ -27,6 +27,8 @@
 }
 
 #text-field {
+    position: absolute;
+    opacity: 0;
     font-size: 1.3rem;
     color: white;
     font-family: monospace;
@@ -38,6 +40,14 @@
 
 #text-field:focus {
     outline: none;
+}
+
+.middle-line {
+    width: 40%;
+    height: 2px;
+    background-color: #47475a;
+    border: none;
+    border-radius: 9999px;
 }
 
 /* LETTERS--------------------------------- */

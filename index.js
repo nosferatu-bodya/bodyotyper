@@ -7,10 +7,12 @@ const textFieldElement = document.querySelector('#text-field')
 let currentLevel = levelAvailability.indexOf(false)
 
 let started = false
+let finished = false
 let startTime
 let endTime
 
 loadLevelMenu(levels, levelAvailability, (level, i) => {
+    finished = false
     started = false
     currentLevel = i
     onLevelClick(level, i)
@@ -26,6 +28,12 @@ highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
 highlightKey(textElement.textContent[textFieldElement.value.length])
 highlightFinger(textElement.textContent[textFieldElement.value.length])
 
+document.addEventListener('keypress', e => {
+    if(!finished) {
+        textFieldElement.focus()
+    }
+})
+
 textFieldElement.addEventListener('input', e => {
 
     if (!started) {
@@ -39,6 +47,7 @@ textFieldElement.addEventListener('input', e => {
 
     if (e.target.value.length >= levels[currentLevel].text.length) {
         textFieldElement.blur()
+        finished = true
 
         endTime = new Date().getTime()
         let time = (endTime - startTime) / 1000 / 60
@@ -59,6 +68,7 @@ textFieldElement.addEventListener('input', e => {
 })
 
 document.querySelector('#next-level').addEventListener('click', () => {
+    finished = false
     started = false
     currentLevel += 1
     loadLevel(currentLevel, levels)
@@ -71,6 +81,7 @@ document.querySelector('#next-level').addEventListener('click', () => {
 })
 
 document.querySelector('#restart-level').addEventListener('click', () => {
+    finished = false
     started = false
     loadLevel(currentLevel, levels)
     seperateToSpans(textElement)
