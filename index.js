@@ -4,7 +4,7 @@ import { levels, levelAvailability, updateData } from './levels.js'
 const textElement = document.querySelector('#text')
 const textFieldElement = document.querySelector('#text-field')
 
-let currentLevel = levelAvailability.indexOf(false)
+let currentLevel = levelAvailability.indexOf(false) ? levelAvailability.indexOf(false) : 0
 
 let started = false
 let finished = false
@@ -28,10 +28,10 @@ highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
 highlightKey(textElement.textContent[textFieldElement.value.length])
 highlightFinger(textElement.textContent[textFieldElement.value.length])
 
-const about = navigator.userAgent
+const aboutUser = navigator.userAgent
 const phoneRegex = /android|iphone|kindle|ipad/i
 
-if(phoneRegex.test(about)) {
+if(phoneRegex.test(aboutUser)) {
     document.querySelector('.phone-warning-container').classList.add('phone-warning-container--active')
 }
 
