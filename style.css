@@ -340,6 +340,47 @@
 }
 
 
+/* ------------------ PHONE WARNING ------------------------ */
+
+.phone-warning-container {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-warning-container--active {
+    display: flex;
+}
+
+.phone-warning {
+    background-color: #47475a;
+    width: 90%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 20%;
+}
+
+.phone-warning h1 {
+    text-align: center;
+    font-family: sans-serif;
+    color: rgb(255, 34, 89);
+    font-size: 4rem
+}
+
+#close-phone-warning {
+    border: none;
+    padding: 30px;
+    font-size: 4rem;
+}
 
 @media (max-width: 1250px) {
     .container {

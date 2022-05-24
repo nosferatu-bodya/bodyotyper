@@ -28,6 +28,17 @@ highlightText(textElement.querySelectorAll('span'), textFieldElement.value)
 highlightKey(textElement.textContent[textFieldElement.value.length])
 highlightFinger(textElement.textContent[textFieldElement.value.length])
 
+const about = navigator.userAgent
+const phoneRegex = /android|iphone|kindle|ipad/i
+
+if(phoneRegex.test(about)) {
+    document.querySelector('.phone-warning-container').classList.add('phone-warning-container--active')
+}
+
+document.querySelector('#close-phone-warning').addEventListener('click', () => {
+    document.querySelector('.phone-warning-container').classList.remove('phone-warning-container--active')
+})
+
 document.addEventListener('keypress', e => {
     if(!finished) {
         textFieldElement.focus()
