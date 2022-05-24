@@ -27,6 +27,7 @@
 }
 
 #text-field {
+    pointer-events: none;
     position: absolute;
     opacity: 0;
     font-size: 1.3rem;
